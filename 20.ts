@@ -4,16 +4,21 @@ declare global {
 	type ToAsciiArt<T extends string> = Pipe<
 		T,
 		[
-			S.Uppercase,
 			S.Split<"\n">,
 			T.FlatMap<
 				ComposeLeft<
-					[S.ToTuple, T.Map<O.Get<_, Letters>>, T.Reduce<T.ZipWith<S.Prepend>, ["", "", ""]>]
+					[
+						S.Uppercase,
+						S.Split<"">,
+						T.Map<O.Get<_, Letters>>,
+						T.Reduce<T.ZipWith<S.Prepend>, ["", "", ""]>,
+					]
 				>
 			>,
 		]
 	>;
 }
+ 
 
 // prettier-ignore
 type Letters = {
